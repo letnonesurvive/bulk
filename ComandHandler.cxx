@@ -1,6 +1,8 @@
 #include "ComandHandler.hxx"
 #include "Logger.hxx"
 #include "OutputHandler.hxx"
+#include <ctime>
+
 
 void CommandHandler::PrintCommands()
 {
