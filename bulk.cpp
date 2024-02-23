@@ -52,13 +52,13 @@ public:
         }
 
         myCommands.push_back (aCommand);
-        if (myCommands.size() == myCommandsNumber && myNestedBlocks == 0) {
+        if ((myCommands.size() == myCommandsNumber) && myNestedBlocks == 0) {
             PrintCommands();
         }
     }
 
 private:
-    int myCommandsNumber;
+    size_t myCommandsNumber;
     int myNestedBlocks = 0;
     vector<string> myCommands;
 };
