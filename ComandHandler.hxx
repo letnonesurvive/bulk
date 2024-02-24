@@ -2,16 +2,22 @@
 #include <string>
 #include <vector>
 
+#ifdef _WIN32 || _WIN64
+#define EXPORT __declspec(dllexport)
+#else
+#define EXPORT __attribute__((visibility("default")))
+#endif
+
 class CommandHandler
 {
 public:
-    CommandHandler() {};
+    EXPORT CommandHandler() {};
 
-    CommandHandler (int theCommandNumber) : myCommandsNumber (theCommandNumber) {};
+    EXPORT CommandHandler (int theCommandNumber) : myCommandsNumber (theCommandNumber) {};
 
-    void PrintCommands();
+    EXPORT void PrintCommands();
 
-    void AddCommand (const std::string& theCommand);
+    EXPORT void AddCommand (const std::string& theCommand);
 
 private:
     size_t myCommandsNumber;

@@ -4,7 +4,7 @@ set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(bulk VERSION ${PROJECT_VESRION})
-
+add_library(bulk_lib bulk.cpp ComandHandler.hxx ComandHandler.cxx Logger.hxx Logger.cxx OutputHandler.hxx OutputHandler.cxx)
 add_executable(bulk bulk.cpp ComandHandler.hxx ComandHandler.cxx Logger.hxx Logger.cxx OutputHandler.hxx OutputHandler.cxx)
 
 set_target_properties(bulk bulk PROPERTIES
@@ -40,3 +40,17 @@ set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 set(CPACK_PACKAGE_CONTACT hippiman1221@gmail.com)
 include(CPack)
+
+project(test)
+#set(BOOST_ROOT "C:\\Work\\boost\\boost_1_82_0")
+#set(Boost_USE_STATIC_LIBS ON) 
+#set(Boost_USE_MULTITHREADED ON)  
+#set(Boost_USE_STATIC_RUNTIME OFF) 
+#find_package(Boost REQUIRED COMPONENTS filesystem) # header only libraries must not be added here
+
+add_executable(test test.cpp) 
+target_include_directories(test PUBLIC ${Boost_INCLUDE_DIRS}) 
+#message("${Boost_INCLUDE_DIRS}")
+#target_link_libraries(CMakeProject ${Boost_LIBRARIES})
+install(TARGETS test RUNTIME DESTINATION bin)
+target_link_libraries(test bulk_lib)
