@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#ifdef _WIN32 || _WIN64
+#if defined _WIN64 || defined _WIN32
 #define EXPORT __declspec(dllexport)
 #else
 #define EXPORT __attribute__((visibility("default")))
