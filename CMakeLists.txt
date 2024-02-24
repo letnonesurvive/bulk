@@ -39,7 +39,7 @@ add_executable(test test.cpp)
 target_link_libraries(test bulk_lib)
 
 install(TARGETS bulk RUNTIME DESTINATION bin)
-install(TARGETS test RUNTIME DESTINATION bin)
+#install(TARGETS test RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
