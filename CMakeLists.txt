@@ -36,8 +36,6 @@ endif()
 project(test)
 project(test VERSION ${PROJECT_VESRION})
 add_executable(test test.cpp) 
-target_include_directories(test PUBLIC ${Boost_INCLUDE_DIRS}) 
-install(TARGETS test RUNTIME DESTINATION bin)
 target_link_libraries(test bulk_lib)
 
 install(TARGETS bulk RUNTIME DESTINATION bin)
