@@ -4,6 +4,9 @@ set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(bulk VERSION ${PROJECT_VESRION})
+
+project(test VERSION ${PROJECT_VESRION})
+
 add_library(bulk_lib bulk.cpp ComandHandler.hxx ComandHandler.cxx Logger.hxx Logger.cxx OutputHandler.hxx OutputHandler.cxx)
 add_executable(bulk bulk.cpp ComandHandler.hxx ComandHandler.cxx Logger.hxx Logger.cxx OutputHandler.hxx OutputHandler.cxx)
 
@@ -32,7 +35,6 @@ else ()
     )
 endif()
 
-
 project(test)
 add_executable(test test.cpp) 
 target_include_directories(test PUBLIC ${Boost_INCLUDE_DIRS}) 
@@ -40,7 +42,6 @@ install(TARGETS test RUNTIME DESTINATION bin)
 target_link_libraries(test bulk_lib)
 
 install(TARGETS bulk RUNTIME DESTINATION bin)
-install(TARGETS bulk_lib RUNTIME DESTINATION bin)
 install(TARGETS test RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
