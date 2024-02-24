@@ -32,7 +32,16 @@ else ()
     )
 endif()
 
+
+project(test)
+add_executable(test test.cpp) 
+target_include_directories(test PUBLIC ${Boost_INCLUDE_DIRS}) 
+install(TARGETS test RUNTIME DESTINATION bin)
+target_link_libraries(test bulk_lib)
+
 install(TARGETS bulk RUNTIME DESTINATION bin)
+install(TARGETS bulk_lib RUNTIME DESTINATION bin)
+install(TARGETS test RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
@@ -40,17 +49,3 @@ set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 set(CPACK_PACKAGE_CONTACT hippiman1221@gmail.com)
 include(CPack)
-
-project(test)
-#set(BOOST_ROOT "C:\\Work\\boost\\boost_1_82_0")
-#set(Boost_USE_STATIC_LIBS ON) 
-#set(Boost_USE_MULTITHREADED ON)  
-#set(Boost_USE_STATIC_RUNTIME OFF) 
-#find_package(Boost REQUIRED COMPONENTS filesystem) # header only libraries must not be added here
-
-add_executable(test test.cpp) 
-target_include_directories(test PUBLIC ${Boost_INCLUDE_DIRS}) 
-#message("${Boost_INCLUDE_DIRS}")
-#target_link_libraries(CMakeProject ${Boost_LIBRARIES})
-install(TARGETS test RUNTIME DESTINATION bin)
-target_link_libraries(test bulk_lib)
