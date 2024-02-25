@@ -46,3 +46,8 @@ add_executable(test test.cpp)
 target_include_directories(test PUBLIC ${Boost_INCLUDE_DIRS}) 
 install(TARGETS test RUNTIME DESTINATION bin)
 target_link_libraries(test bulk_lib)
+
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+include(CPack)
