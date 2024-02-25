@@ -38,23 +38,23 @@ jobs:
           asset_name: bulk-0.0.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package
 
-      - name: Create Release for Test Project
-        id: create_release_test
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.run_number }}-test
-          release_name: Release ${{ github.run_number }} for Test Project
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset for Test Project
-        id: upload-release-asset_test
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release_test.outputs.upload_url }}
-          asset_path: ./test-0.0.${{ github.run_number }}-Linux.deb
-          asset_name: test-0.0.${{ github.run_number }}-Linux.deb
-          asset_content_type: application/vnd.debian.binary-package
+      # - name: Create Release for Test Project
+      #   id: create_release_test
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.run_number }}-test
+      #     release_name: Release ${{ github.run_number }} for Test Project
+      #     draft: false
+      #     prerelease: false
+      # - name: Upload Release Asset for Test Project
+      #   id: upload-release-asset_test
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release_test.outputs.upload_url }}
+      #     asset_path: ./test-0.0.${{ github.run_number }}-Linux.deb
+      #     asset_name: test-0.0.${{ github.run_number }}-Linux.deb
+      #     asset_content_type: application/vnd.debian.binary-package
