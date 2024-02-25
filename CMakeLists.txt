@@ -1,11 +1,34 @@
 cmake_minimum_required(VERSION 3.12)
 
+
+function (add_package TARGET_NAME TARGET_PATH DESCR)
+    install(TARGETS "${TARGET_NAME}"
+            DESTINATION "${TARGET_PATH}"
+            COMPONENT "${TARGET_NAME}")
+
+    cpack_add_component_group("${TARGET_NAME}")
+
+    cpack_add_component("${TARGET_NAME}"
+                        DISPLAY_NAME "${TARGET_NAME}"
+                        DESCRIPTION "${DESCR}"
+                        GROUP "${TARGET_NAME}"
+                        INSTALL_TYPES Full)
+endfunction ()
+
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
+
+set(CPACK_GENERATOR DEB)
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+set(CPACK_PACKAGE_CONTACT hippiman1221@gmail.com)
+include(CPack)
 
 project(bulk VERSION ${PROJECT_VESRION})
 add_library(bulk_lib bulk.cpp ComandHandler.hxx ComandHandler.cxx Logger.hxx Logger.cxx OutputHandler.hxx OutputHandler.cxx)
 add_executable(bulk bulk.cpp ComandHandler.hxx ComandHandler.cxx Logger.hxx Logger.cxx OutputHandler.hxx OutputHandler.cxx)
+add_package(bulk "bin" "_bulk")
 
 set_target_properties(bulk bulk PROPERTIES
     CXX_STANDARD 14
@@ -32,25 +55,13 @@ else ()
     )
 endif()
 
-install(TARGETS bulk RUNTIME DESTINATION bin)
-
-set(CPACK_GENERATOR DEB)
-set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
-set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
-set(CPACK_PACKAGE_CONTACT hippiman1221@gmail.com)
-include(CPack)
-set(CPACK_COMPONENTS_ALL bulk)
+#install(TARGETS bulk RUNTIME DESTINATION bin)
 
 project(test)
 add_executable(test test.cpp) 
+add_package(test "bin" "_bulk")
 target_include_directories(test PUBLIC ${Boost_INCLUDE_DIRS}) 
 install(TARGETS test RUNTIME DESTINATION bin)
 target_link_libraries(test bulk_lib)
 
-set(test_CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
-set(test_CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
-set(test_CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
-set(test_CPACK_PACKAGE_CONTACT hippiman1221@gmail.com)
-include(CPack)
-set(CPACK_COMPONENTS_ALL ${CPACK_COMPONENTS_ALL} test)
+
