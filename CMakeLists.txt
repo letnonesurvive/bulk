@@ -4,6 +4,7 @@ set(CPACK_GENERATOR DEB)
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+set (CPACK_DEB_COMPONENT_INSTALL ON)
 set(CPACK_PACKAGE_CONTACT hippiman1221@gmail.com)
 include(CPack)
 
@@ -27,7 +28,6 @@ set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 project(bulk VERSION ${PROJECT_VESRION})
 add_library(bulk_lib bulk.cpp ComandHandler.hxx ComandHandler.cxx Logger.hxx Logger.cxx OutputHandler.hxx OutputHandler.cxx)
 add_executable(bulk bulk.cpp ComandHandler.hxx ComandHandler.cxx Logger.hxx Logger.cxx OutputHandler.hxx OutputHandler.cxx)
-add_package(bulk "bin" "_bulk")
 
 set_target_properties(bulk bulk PROPERTIES
     CXX_STANDARD 14
@@ -54,13 +54,11 @@ else ()
     )
 endif()
 
-#install(TARGETS bulk RUNTIME DESTINATION bin)
+add_package(bulk "bin" "_bulk")
 
 project(test)
 add_executable(test test.cpp) 
-add_package(test "bin" "_bulk")
-target_include_directories(test PUBLIC ${Boost_INCLUDE_DIRS}) 
-install(TARGETS test RUNTIME DESTINATION bin)
 target_link_libraries(test bulk_lib)
+add_package(test "bin" "_bulk")
 
 
