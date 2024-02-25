@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
-project(main_project)
+
+project(bulk VERSION ${PROJECT_VESRION})
 
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 
