@@ -1,6 +1,4 @@
 #include "ComandHandler.hxx"
-#include "Logger.hxx"
-#include "OutputHandler.hxx"
 #include <ctime>
 
 
@@ -9,15 +7,15 @@ void CommandHandler::PrintCommands()
     if (myCommands.size() == 0) {
         return;
     }
-    OutputHandler::GlobalInstance()->Output ("bulk: ");
+    Notify ("bulk: ");
 
     for (auto anIt = myCommands.cbegin(); anIt != myCommands.cend(); ++anIt) {
-        OutputHandler::GlobalInstance()->Output (*anIt);
+        Notify (*anIt);
         if (anIt != --myCommands.cend()) {
-            OutputHandler::GlobalInstance()->Output (", ");
+            Notify (", ");
         }
     }
-    OutputHandler::GlobalInstance()->Output ("\n");
+    Notify ("\n");
     myCommands.clear();
 }
 
@@ -39,12 +37,24 @@ void CommandHandler::AddCommand (const std::string& theCommand)
         return;
     }
     else if (theCommand == "}" && myNestedBlocks == 0) {
-        OutputHandler::GlobalInstance()->Output ("Invalid block \n");
+        Notify ("Invalid block \n");
         return;
     }
 
     myCommands.push_back (theCommand);
     if ((myCommands.size() == myCommandsNumber) && myNestedBlocks == 0) {
         PrintCommands();
+    }
+}
+
+void CommandHandler::Subscribe (Observer* theObs)
+{
+    mySubscribers.push_back (theObs);
+}
+
+void CommandHandler::Notify (const std::string& theStr) const
+{
+    for (auto aSub : mySubscribers) {
+        aSub->Log(theStr);
     }
 }

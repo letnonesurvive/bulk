@@ -1,4 +1,6 @@
 #include "../bulk/ComandHandler.hxx"
+#include "../bulk/FileLogger.hxx"
+#include "../bulk/ConsoleLogger.hxx"
 
 #include <string>
 #include <vector>
@@ -12,6 +14,9 @@ void TestCase(const vector<string>& theCommands)
     int aNumber = 3;
    
     CommandHandler aHandler(aNumber);
+    FileLogger aFileLog(&aHandler);
+    ConsoleLogger aConsoleLog(&aHandler);
+
     for (const auto& aCommand : theCommands) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         cout << aCommand << endl;

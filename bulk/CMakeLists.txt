@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
-add_library(bulk_lib bulk.cpp ComandHandler.hxx ComandHandler.cxx Logger.hxx Logger.cxx OutputHandler.hxx OutputHandler.cxx)
-add_executable(bulk bulk.cpp ComandHandler.hxx ComandHandler.cxx Logger.hxx Logger.cxx OutputHandler.hxx OutputHandler.cxx)
+add_library(bulk_lib bulk.cpp ComandHandler.hxx ComandHandler.cxx Observer.hxx FileLogger.hxx FileLogger.cxx ConsoleLogger.hxx ConsoleLogger.cxx )
+add_executable(bulk bulk.cpp ComandHandler.hxx ComandHandler.cxx Observer.hxx FileLogger.hxx FileLogger.cxx ConsoleLogger.hxx ConsoleLogger.cxx )
 
 set_target_properties(bulk bulk PROPERTIES
     CXX_STANDARD 14
